@@ -70,13 +70,13 @@ def user_login(request):
     if not username or not password:
         return Response({"message": "username or password not provided"})
 
-    user = Users.objects.filter(username=username, password=password)
+    user = Users.objects.filter(username=username, password=password).first()
     # user will return a list, so we do user[o]
-    if len(user) > 0:
-        return Response(UserSerializer(instance=user[0]).data, status=200)
+    if user is not None:
+        return Response(UserSerializer(instance=user).data, status=200)
 
     else:
-        Response({"message": "incorrect password or username"})
+        return Response({"message": "incorrect password or username"})
 
 
 
