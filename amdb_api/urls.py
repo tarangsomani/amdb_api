@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from users.views import create_user, get_user, user_login, create_movie
+from users.views import create_user, get_user, user_login, create_movie,user_logout
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'user/logout/',user_logout),
     url(r'user/login/',user_login),
     url(r'user/create/', create_user),
     url(r'user/',get_user),

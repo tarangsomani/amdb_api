@@ -136,4 +136,19 @@ def create_movie(request):
         return Response({"message":"you have already reviewed this movie!!"})
 
 
+@api_view(['POST'])
+def user_logout(request):
+
+    access_token = request.META["HTTP_TOKEN"]
+    access_granted = AccessToken.objects.filter(access_token=access_token).first()
+    if access_granted.is_valid is True:
+        access_granted.is_valid = False
+        access_granted.save()
+        return Response({"message":"you have successfully logged out"},status=200)
+
+    else:
+        return Response({"message":"wrong access_token"},status=400)
+
+
+
 
